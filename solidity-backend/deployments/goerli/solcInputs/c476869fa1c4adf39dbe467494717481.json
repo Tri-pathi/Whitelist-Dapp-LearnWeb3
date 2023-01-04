@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Whitelist.sol": {
+      "content": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\ncontract Whitelist{\n    //max number of whitelisted address allowed 255;\n\n    uint8 public maxWhitelistedAddress;\n    //for enxuring a address that it is whitelisted or not\n    mapping (address => bool) public WhitelistAddress;\n        // numAddressesWhitelisted would be used to keep track of how many addresses have been whitelisted\n\nuint8 public numAddressesWhitelisted;\nconstructor(uint8 _maxWhitelistedAddresses){\n    maxWhitelistedAddress=_maxWhitelistedAddresses;\n}\n\nfunction addAddressToWhitelist() public {\n    require(!WhitelistAddress[msg.sender],\"Caller is already a whitelisted\");\n    require(numAddressesWhitelisted<maxWhitelistedAddress,\"adding this result in overflow for uint8 which is upper limit of whitelistedAddress\");\n    WhitelistAddress[msg.sender]=true;\n    numAddressesWhitelisted+=1;\n\n\n    \n}\n\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
